@@ -1,0 +1,78 @@
+Jenkins Assignment
+
+Module-8: Jenkins Assignment - 1
+You have been asked to:
+● Trigger a pipeline using Git when push on Develop branch
+● Pipeline should pull git content to a folder
+
+Module-8: Jenkins Assignment - 2
+You have been asked to:
+● Add 2 nodes to Jenkins master
+● Create 2 jobs with the following jobs:
+○ Push to test
+○ Push to prod
+● Once a push is made to test branch copy git files to test server
+● Once a push is made to master branch copy git files to prod server 
+
+Module-8: Jenkins Assignment - 3
+You have been asked to:
+● Create a pipeline in jenkins
+● Once push is made to “develop” branch in git, trigger job “test”. This will copy git files to
+test node
+● If test job is successful, then prod job should be triggered
+● Prod jobs should copy files to prod node
+
+
+
+Step-1
+Login to AWS – launch 3 Instances (Ubuntu) One Master Two Slaves – Open port 8080
+Step-2
+Login to Master – Update the OS – Install Java-21 – Install Jenkins – Install and Initialize Git – Install SSH
+Perform below Commands to complete Step-2
+1.	Sudo apt update –y
+2.	sudo apt install openjdk-21-jdk –y
+3.	java –version
+4.	export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+5.	export PATH=$JAVA_HOME/bin:$PATH
+6.	Follow The link to Install Jenkins ( https://www.jenkins.io/doc/book/installing/linux/ )
+7.	Follow The link to Install Jenkins Install and Initialize Git  ( https://github.com/P-r-a-t-i-k-D/Git_Assingment )
+8.	sudo apt install openssh-server -y
+9.	sudo systemctl enable ssh
+10.	sudo systemctl start ssh
+
+
+
+
+
+Step-3
+Goto Master and create 3 branches (Develop, Test, Prod) – Push to GitHub
+
+Step–4
+Goto Slave 1 and 2 and Install Java and SSH
+
+Step -5
+Login to Jenkins – Goto Settings  - Security - TCP port for inbound agents (Random) – Save – Back to Jenkins Home – Click on New Item – Give Name -  Choose Freestyle Project – Ok – Write Description - Source Code Management (Git) – Give Repo URL – Specify Branch – Triggers (GitHub hook trigger for GITScm polling) – Save
+
+Step-6
+Goto – Settings – Nodes – New Node – Give Name - Write Description - Remote root directory (/home/ubuntu/jenkins) – Give Labels - Launch method (Launch agents via SSH) – Host (Give Slave 1 Private IP) – Credentials – Add (Click on Jenkins) – Kind (SSH Username with private key) – Give User Name - Private Key – Select Enter Directly – Paste Slave1 PEM Key here - Host Key Verification Strategy (Non verifying Verification Strategy) – Availability (Keep this agent online as much as possible) – Save
+
+Step-7
+Goto – Settings – Nodes – New Node – Give Name - Write Description - Remote root directory (/home/ubuntu/jenkins) – Give Labels - Launch method (Launch agents via SSH) – Host (Give Slave 2 Private IP) – Credentials – Add (Click on Jenkins) – Kind (SSH Username with private key) – Give User Name - Private Key – Select Enter Directly – Paste Slave2 PEM Key here - Host Key Verification Strategy (Non verifying Verification Strategy) – Availability (Keep this agent online as much as possible) – Save
+
+Step-8
+Goto Jenkins Home – Click on New Item – Give Name - Write Description – Click on Restrict where this project can be run - Label Expression (Give the node’s lebel1 name where job will run) - Source Code Management (Git) – Give Repository URL – Credentials (ubuntu) – Specify Branch – Triggers (Build after other projects are built
+) – Select Projects to watch – Specify Project – Save
+
+Step-9
+Goto Jenkins Home – Click on New Item – Give Name - Write Description – Click on Restrict where this project can be run - Label Expression (Give the node’s lebel2 name where job will run) - Source Code Management (Git) – Give Repository URL – Credentials (ubuntu) – Specify Branch – Triggers (Build after other projects are built
+) – Select Projects to watch – Specify Project – Save
+
+Step-10
+Goto Jenkins Home – Select Plugins - Available plugins – Download SSH and Build Pipeline Plugins
+Step-8
+Goto Jenkins Home – Click on + Icon (New View) – Give Name – Type (Build Pipeline View) – Create - Write Description – Give Build Pipeline View Title - Select Initial Job – Save – Add Step by Step
+
+
+
+ 
+
